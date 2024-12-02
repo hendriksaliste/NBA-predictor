@@ -1,4 +1,4 @@
-# NBA-predictor 
+# E12 NBA-predictor 
 
 Autorid: Hendrik Saliste, Gert Kalmus, Karl Aleksander Kaplinski
 
