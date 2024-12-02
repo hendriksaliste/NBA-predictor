@@ -2,7 +2,7 @@
 
 Autorid: Hendrik Saliste, Gert Kalmus, Karl Aleksander Kaplinski
 
-NBA-predictor on ülikooli kursuse "Sissejuhatus andmeteaduse" valmiv rühmatöö.
+NBA-predictor on ülikooli kursuse "Sissejuhatus andmeteadusesse" valmiv rühmatöö.
 
 # Esimene ülesanne - "Setting up"
 Tehtud 
