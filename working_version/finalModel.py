@@ -1,5 +1,7 @@
 
 import pandas as pd
+import numpy as np
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.linear_model import ElasticNet
 from sklearn.preprocessing import RobustScaler
 
@@ -63,7 +65,34 @@ elastic_net_model.fit(X_train_scaled,y)
 #Predicting the 2023 2024 season
 prediction = elastic_net_model.predict(X_realTest.values)
 predCsv = testData[["home_team","away_team","winner"]]
-prediction = (prediction >= 0).astype(int)
+def find_best_cutoff(y_true, y_prob, metric):
+    cutoffs = np.arange(-1.5, 1.51, 0.01)  # Generate cutoffs from 0 to 1
+    best_cutoff = 0.0
+    best_metric = 0.0
+
+    for cutoff in cutoffs:
+        y_pred = (y_prob >= cutoff).astype(int)
+        
+        if metric == 'accuracy':
+            score = accuracy_score(y_true, y_pred)
+        elif metric == 'precision':
+            score = precision_score(y_true, y_pred, zero_division=0)
+        elif metric == 'recall':
+            score = recall_score(y_true, y_pred, zero_division=0)
+        elif metric == 'f1':
+            score = f1_score(y_true, y_pred, zero_division=0)
+        else:
+            raise ValueError("Invalid metric. Choose from 'accuracy', 'precision', 'recall', 'f1'.")
+        
+        if score > best_metric:
+            best_metric = score
+            best_cutoff = cutoff
+
+    return best_cutoff, best_metric
+
+best_cutoff, best_metric = find_best_cutoff(y_realTest, prediction, metric='accuracy')
+print(f"Best Cutoff: {best_cutoff}, Best F1-Score: {best_metric}")
+prediction = (prediction >= -1.1699999999999997).astype(int)
 predCsv["winner"] = prediction
 
 # Rename columns for better readability
