@@ -65,7 +65,7 @@ elastic_net_model.fit(X_train_scaled,y)
 #Predicting the 2023 2024 season
 prediction = elastic_net_model.predict(X_realTest.values)
 predCsv = testData[["home_team","away_team","winner"]]
-def find_best_cutoff(y_true, y_prob, metric):
+""" def find_best_cutoff(y_true, y_prob, metric):
     cutoffs = np.arange(-1.5, 1.51, 0.01)  # Generate cutoffs from 0 to 1
     best_cutoff = 0.0
     best_metric = 0.0
@@ -91,8 +91,8 @@ def find_best_cutoff(y_true, y_prob, metric):
     return best_cutoff, best_metric
 
 best_cutoff, best_metric = find_best_cutoff(y_realTest, prediction, metric='accuracy')
-print(f"Best Cutoff: {best_cutoff}, Best F1-Score: {best_metric}")
-prediction = (prediction >= -1.1699999999999997).astype(int)
+print(f"Best Cutoff: {best_cutoff}, Best F1-Score: {best_metric}") """
+prediction = (prediction >= 0).astype(int)
 predCsv["winner"] = prediction
 
 # Rename columns for better readability
